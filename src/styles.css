@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@import './styles/_tokens.css';
+@import './styles/_reset.css';
+@import './styles/_typography.css';
+@import './styles/_utilities.css';

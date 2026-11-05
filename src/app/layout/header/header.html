@@ -1,0 +1,149 @@
+<header
+  role="banner"
+  class="sticky top-0 z-50 w-full border-b backdrop-blur-md transition-colors"
+  style="background-color: rgba(15, 23, 42, 0.85); border-color: var(--color-border-subtle)"
+>
+  <div class="container-custom flex h-16 items-center justify-between gap-4 py-2">
+    <!-- Brand / Logo -->
+    <a
+      routerLink="/"
+      (click)="closeMobileMenu()"
+      class="group flex items-center gap-2 text-lg font-bold tracking-tight text-slate-100 transition-colors"
+    >
+      <span
+        class="flex h-8 w-8 items-center justify-center rounded-md font-mono text-sm text-white"
+        style="background-color: var(--color-accent)"
+      >
+        J
+      </span>
+      <span class="group-hover:text-indigo-400">Jobayer</span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
+      <ul class="flex items-center gap-1" role="list">
+        @for (link of navLinks; track link.path) {
+          <li>
+            <a
+              [routerLink]="link.path"
+              routerLinkActive="nav-active"
+              [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              class="nav-link"
+            >
+              {{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Header Actions (Desktop CTA + Mobile Toggle) -->
+    <div class="flex items-center gap-3">
+      <!-- Download CV button (placeholder href to be connected to public resume asset) -->
+      <a
+        href="#"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary text-xs hidden sm:inline-flex"
+        aria-label="Download Curriculum Vitae (PDF)"
+      >
+        <svg
+          class="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+          />
+        </svg>
+        <span>Download CV</span>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        type="button"
+        class="mobile-toggle-btn md:hidden"
+        [attr.aria-expanded]="isMobileMenuOpen()"
+        aria-controls="mobile-navigation"
+        aria-label="Toggle navigation menu"
+        (click)="toggleMobileMenu()"
+      >
+        @if (!isMobileMenuOpen()) {
+          <svg
+            class="h-6 w-6 text-slate-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        } @else {
+          <svg
+            class="h-6 w-6 text-slate-200"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        }
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  @if (isMobileMenuOpen()) {
+    <div
+      id="mobile-navigation"
+      class="border-b px-4 py-4 md:hidden"
+      style="background-color: var(--color-surface); border-color: var(--color-border)"
+    >
+      <nav aria-label="Mobile Navigation">
+        <ul class="flex flex-col space-y-2" role="list">
+          @for (link of navLinks; track link.path) {
+            <li>
+              <a
+                [routerLink]="link.path"
+                routerLinkActive="mobile-nav-active"
+                [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+                (click)="closeMobileMenu()"
+                class="mobile-nav-link"
+              >
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+
+        <div class="mt-4 pt-4 border-t" style="border-color: var(--color-border)">
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary w-full text-center text-xs"
+            aria-label="Download Curriculum Vitae (PDF)"
+          >
+            Download CV
+          </a>
+        </div>
+      </nav>
+    </div>
+  }
+</header>
