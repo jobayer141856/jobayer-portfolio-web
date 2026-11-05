@@ -2,11 +2,11 @@
      HERO SECTION
      ============================================== -->
 <section
-  class="section-spacing border-b"
+  class="relative border-b flex min-h-[calc(100vh-4rem)] items-center justify-center py-16 sm:py-24"
   style="border-color: var(--color-border-subtle)"
   aria-labelledby="hero-heading"
 >
-  <div class="container-custom">
+  <div class="container-custom flex flex-col items-center justify-center text-center">
     @switch (profileState().status) {
       @case ('loading') {
         <div class="max-w-2xl mx-auto text-center space-y-4">
@@ -142,7 +142,7 @@
           } @else {
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               @for (project of projects; track project.id) {
-                <article class="surface-card flex flex-col justify-between p-6">
+                <article class="surface-card flex flex-col justify-between p-5 sm:p-6">
                   <div>
                     <div class="flex items-center justify-between gap-2 mb-3">
                       <span class="text-xs font-mono uppercase tracking-wider text-slate-400">

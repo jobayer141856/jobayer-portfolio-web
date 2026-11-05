@@ -20,8 +20,8 @@
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center gap-1" aria-label="Main Navigation">
-      <ul class="flex items-center gap-1" role="list">
+    <nav class="desktop-nav hidden md:flex items-center gap-1" aria-label="Main Navigation">
+      <ul class="desktop-nav-list flex items-center gap-1" role="list">
         @for (link of navLinks; track link.path) {
           <li>
             <a
@@ -112,7 +112,7 @@
   @if (isMobileMenuOpen()) {
     <div
       id="mobile-navigation"
-      class="border-b px-4 py-4 md:hidden"
+      class="mobile-drawer border-b px-4 py-4 md:hidden"
       style="background-color: var(--color-surface); border-color: var(--color-border)"
     >
       <nav aria-label="Mobile Navigation">

@@ -1,6 +1,6 @@
 <div class="container-custom section-spacing">
   <!-- Page Header -->
-  <div class="max-w-3xl mb-12">
+  <div class="max-w-4xl mb-12">
     <span class="text-xs font-mono uppercase tracking-wider text-indigo-400">Biography</span>
     <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mt-2">About Me</h1>
     <p class="mt-4 text-lg text-slate-400 leading-relaxed">
@@ -38,15 +38,25 @@
     }
     @case ('success') {
       @if (state().data; as profile) {
-        <div class="max-w-3xl space-y-8">
-          <div class="surface-card p-8">
-            <h2 class="text-2xl font-bold text-white mb-4">Professional Overview</h2>
-            <div class="space-y-4 text-slate-300 leading-relaxed">
-              @if (profile.biography) {
-                <p>{{ profile.biography }}</p>
-              } @else {
-                <p>{{ profile.shortIntro }}</p>
-              }
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+          <!-- Card 1: Professional Overview -->
+          <div class="surface-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-4">
+                <span
+                  class="h-2 w-2 rounded-full"
+                  style="background-color: var(--color-accent)"
+                  aria-hidden="true"
+                ></span>
+                <h2 class="text-2xl font-bold text-white">Professional Overview</h2>
+              </div>
+              <div class="space-y-4 text-slate-300 leading-relaxed">
+                @if (profile.biography) {
+                  <p>{{ profile.biography }}</p>
+                } @else {
+                  <p>{{ profile.shortIntro }}</p>
+                }
+              </div>
             </div>
 
             <div
@@ -67,38 +77,47 @@
             </div>
           </div>
 
-          <!-- Working Principles -->
-          <div class="surface-card p-8">
-            <h2 class="text-2xl font-bold text-white mb-6">Engineering Values</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div>
-                <h3 class="text-base font-semibold text-indigo-400 mb-1">
-                  Architecture & Reliability
-                </h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                  Separation of concerns, decoupled microservices or modular monoliths, and
-                  predictable data flow.
-                </p>
+          <!-- Card 2: Engineering Values -->
+          <div class="surface-card p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="h-2 w-2 rounded-full"
+                  style="background-color: var(--color-accent)"
+                  aria-hidden="true"
+                ></span>
+                <h2 class="text-2xl font-bold text-white">Engineering Values</h2>
               </div>
-              <div>
-                <h3 class="text-base font-semibold text-indigo-400 mb-1">Clean Contracts</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                  Strongly typed API boundaries, explicit error models, and OpenAPI-driven schemas.
-                </p>
-              </div>
-              <div>
-                <h3 class="text-base font-semibold text-indigo-400 mb-1">Accessibility First</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                  WCAG 2.2 AA compliant UI, keyboard navigation, and meaningful screen reader
-                  semantics.
-                </p>
-              </div>
-              <div>
-                <h3 class="text-base font-semibold text-indigo-400 mb-1">Continuous Quality</h3>
-                <p class="text-sm text-slate-400 leading-relaxed">
-                  Automated regression testing, linting gates, and production-ready performance
-                  standards.
-                </p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div>
+                  <h3 class="text-base font-semibold text-indigo-400 mb-1">
+                    Architecture & Reliability
+                  </h3>
+                  <p class="text-sm text-slate-400 leading-relaxed">
+                    Separation of concerns, decoupled microservices or modular monoliths, and
+                    predictable data flow.
+                  </p>
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-indigo-400 mb-1">Clean Contracts</h3>
+                  <p class="text-sm text-slate-400 leading-relaxed">
+                    Strongly typed API boundaries, explicit error models, and OpenAPI-driven schemas.
+                  </p>
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-indigo-400 mb-1">Accessibility First</h3>
+                  <p class="text-sm text-slate-400 leading-relaxed">
+                    WCAG 2.2 AA compliant UI, keyboard navigation, and meaningful screen reader
+                    semantics.
+                  </p>
+                </div>
+                <div>
+                  <h3 class="text-base font-semibold text-indigo-400 mb-1">Continuous Quality</h3>
+                  <p class="text-sm text-slate-400 leading-relaxed">
+                    Automated regression testing, linting gates, and production-ready performance
+                    standards.
+                  </p>
+                </div>
               </div>
             </div>
           </div>

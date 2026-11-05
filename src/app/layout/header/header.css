@@ -31,6 +31,30 @@
   transition: background-color var(--duration-fast) var(--easing-default);
 }
 
+@media (min-width: 768px) {
+  .mobile-toggle-btn {
+    display: none !important;
+  }
+}
+
+.desktop-nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-drawer {
+    display: none !important;
+  }
+}
+
 .mobile-toggle-btn:hover {
   background-color: var(--color-surface);
 }
@@ -59,4 +83,17 @@
   color: var(--color-text-primary);
   background-color: var(--color-surface-raised);
   border-left: 3px solid var(--color-accent);
+}
+
+.desktop-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+  flex-shrink: 0;
 }
