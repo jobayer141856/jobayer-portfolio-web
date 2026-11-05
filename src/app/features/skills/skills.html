@@ -1,0 +1,61 @@
+<div class="container-custom section-spacing">
+  <!-- Page Header -->
+  <div class="max-w-3xl mb-12">
+    <span class="text-xs font-mono uppercase tracking-wider text-indigo-400">Capabilities</span>
+    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mt-2">
+      Technical Skills
+    </h1>
+    <p class="mt-4 text-lg text-slate-400 leading-relaxed">
+      A transparent breakdown of programming languages, architecture frameworks, and engineering
+      competencies.
+    </p>
+  </div>
+
+  @switch (state().status) {
+    @case ('loading') {
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <app-loading-skeleton [count]="6" height="h-36" />
+      </div>
+    }
+    @case ('error') {
+      <div class="max-w-2xl">
+        <app-inline-error
+          [message]="state().message || 'Unable to load skills.'"
+          (retry)="loadSkills()"
+        />
+      </div>
+    }
+    @case ('success') {
+      @if (state().data; as groups) {
+        @if (groups.length === 0) {
+          <app-empty-state
+            title="No skill categories published"
+            message="Technical skills will appear here once published."
+          />
+        } @else {
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (group of groups; track group.category) {
+              <section
+                class="surface-card p-6"
+                [attr.aria-labelledby]="'skill-category-' + group.category"
+              >
+                <h2
+                  [id]="'skill-category-' + group.category"
+                  class="text-base font-semibold text-white mb-4 pb-2 border-b"
+                  style="border-color: var(--color-border)"
+                >
+                  {{ group.category }}
+                </h2>
+                <div class="flex flex-wrap gap-2">
+                  @for (skill of group.skills; track skill.id) {
+                    <app-tag [label]="skill.name" />
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        }
+      }
+    }
+  }
+</div>

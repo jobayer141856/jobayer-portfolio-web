@@ -1,0 +1,10 @@
+<div role="status" aria-label="Loading content..." class="w-full space-y-3 animate-pulse">
+  @for (item of items; track item) {
+    <div
+      class="w-full rounded-md"
+      [class]="height()"
+      style="background-color: var(--color-surface-raised)"
+    ></div>
+  }
+  <span class="sr-only">Loading content...</span>
+</div>

@@ -1,0 +1,129 @@
+<div class="container-custom section-spacing">
+  <!-- Breadcrumb / Back Link -->
+  <div class="mb-8">
+    <a
+      routerLink="/projects"
+      class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+    >
+      <span>&larr;</span>
+      <span>Back to all projects</span>
+    </a>
+  </div>
+
+  @switch (state().status) {
+    @case ('loading') {
+      <div class="max-w-4xl space-y-6">
+        <app-loading-skeleton [count]="8" height="h-8" />
+      </div>
+    }
+    @case ('error') {
+      <div class="max-w-2xl">
+        <app-inline-error
+          [message]="state().message || 'Unable to load project details.'"
+          (retry)="retry()"
+        />
+      </div>
+    }
+    @case ('success') {
+      @if (state().data; as project) {
+        <article class="max-w-4xl">
+          <!-- Header -->
+          <header class="mb-10">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-xs font-mono uppercase tracking-wider text-indigo-400">
+                {{ project.category || 'Case Study' }}
+              </span>
+              @if (project.isFeatured) {
+                <span
+                  class="rounded bg-indigo-500/10 px-2 py-0.5 text-xs font-medium text-indigo-400"
+                >
+                  Featured
+                </span>
+              }
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-4">
+              {{ project.title }}
+            </h1>
+            <p class="text-lg text-slate-300 leading-relaxed mb-6">
+              {{ project.shortSummary }}
+            </p>
+
+            <!-- External links -->
+            <div class="flex flex-wrap items-center gap-3">
+              @if (project.liveDemoUrl) {
+                <a
+                  [href]="project.liveDemoUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-primary"
+                >
+                  Launch Live Demo ↗
+                </a>
+              }
+              @if (project.repositoryUrl) {
+                <a
+                  [href]="project.repositoryUrl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn-secondary"
+                >
+                  Source Repository ↗
+                </a>
+              }
+            </div>
+          </header>
+
+          <!-- Tech Stack -->
+          <div class="surface-card p-6 mb-8">
+            <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-400 mb-3">
+              Technologies Used
+            </h2>
+            <div class="flex flex-wrap gap-2">
+              @for (tag of project.technologyTags; track tag) {
+                <app-tag [label]="tag" />
+              }
+            </div>
+          </div>
+
+          <!-- Full Case Study Content -->
+          <div class="space-y-8 text-slate-300 leading-relaxed">
+            @if (project.fullDescription) {
+              <section class="surface-card p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Overview & Architecture</h2>
+                <p class="whitespace-pre-line">{{ project.fullDescription }}</p>
+              </section>
+            }
+
+            @if (project.role || project.contributions) {
+              <section class="surface-card p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Role & Contributions</h2>
+                @if (project.role) {
+                  <p class="font-medium text-indigo-400 mb-2">Role: {{ project.role }}</p>
+                }
+                @if (project.contributions) {
+                  <p class="whitespace-pre-line">{{ project.contributions }}</p>
+                }
+              </section>
+            }
+
+            @if (project.challenges) {
+              <section class="surface-card p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">
+                  Engineering Challenges & Solutions
+                </h2>
+                <p class="whitespace-pre-line">{{ project.challenges }}</p>
+              </section>
+            }
+
+            @if (project.outcomes) {
+              <section class="surface-card p-8">
+                <h2 class="text-2xl font-bold text-white mb-4">Impact & Measurable Outcomes</h2>
+                <p class="whitespace-pre-line">{{ project.outcomes }}</p>
+              </section>
+            }
+          </div>
+        </article>
+      }
+    }
+  }
+</div>

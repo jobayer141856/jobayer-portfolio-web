@@ -1,5 +1,5 @@
-export type AsyncState<T> =
-  | { readonly status: 'idle' }
-  | { readonly status: 'loading' }
-  | { readonly status: 'success'; readonly data: T }
-  | { readonly status: 'error'; readonly message: string };
+export interface AsyncState<T> {
+  readonly status: 'idle' | 'loading' | 'success' | 'error';
+  readonly data?: T;
+  readonly message?: string;
+}
