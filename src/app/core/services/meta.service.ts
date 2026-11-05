@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, DOCUMENT } from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 
 export interface PageMetaOptions {
@@ -15,6 +15,7 @@ export interface PageMetaOptions {
 export class MetaService {
   private readonly titleService = inject(Title);
   private readonly metaService = inject(Meta);
+  private readonly document = inject(DOCUMENT);
   private readonly defaultSiteTitle = 'Jobayer | Software Engineer';
 
   setPageMeta(options: PageMetaOptions): void {
@@ -36,6 +37,16 @@ export class MetaService {
       this.metaService.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     } else {
       this.metaService.updateTag({ name: 'robots', content: 'index, follow' });
+    }
+
+    if (options.canonicalUrl) {
+      let link: HTMLLinkElement | null = this.document.querySelector('link[rel="canonical"]');
+      if (!link) {
+        link = this.document.createElement('link');
+        link.setAttribute('rel', 'canonical');
+        this.document.head.appendChild(link);
+      }
+      link.setAttribute('href', options.canonicalUrl);
     }
   }
 }

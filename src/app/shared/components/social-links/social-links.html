@@ -1,0 +1,14 @@
+<div class="flex items-center gap-3">
+  @for (item of links(); track item.platform) {
+    <a
+      [href]="item.url"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="flex h-10 w-10 items-center justify-center rounded-lg border text-slate-400 transition-colors hover:text-white hover:border-indigo-400"
+      style="background-color: var(--color-surface); border-color: var(--color-border)"
+      [attr.aria-label]="item.label + ' (opens in a new tab)'"
+    >
+      <span class="text-xs font-semibold">{{ item.platform.slice(0, 2).toUpperCase() }}</span>
+    </a>
+  }
+</div>
