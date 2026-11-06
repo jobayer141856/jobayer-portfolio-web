@@ -10,6 +10,8 @@ export interface Profile {
   readonly shortIntro: string;
   readonly biography?: string;
   readonly biographyMarkdown?: string;
+  readonly workingApproach?: string;
+  readonly workingApproachMarkdown?: string;
   readonly profileImageUrl?: string;
   readonly profileImageAlt?: string;
   readonly resumeUrl?: string;

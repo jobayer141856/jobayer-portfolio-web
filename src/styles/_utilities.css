@@ -51,7 +51,9 @@
 
 @layer components {
   /* Base button styles matching tokens */
-  .btn-primary {
+  .btn-primary,
+  a.btn-primary,
+  button.btn-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -59,22 +61,27 @@
     padding: 0.625rem 1.25rem;
     font-weight: 500;
     font-size: var(--text-sm);
-    color: var(--color-text-on-accent);
+    color: #ffffff !important;
     background-color: var(--color-accent);
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     cursor: pointer;
+    text-decoration: none !important;
     transition:
       background-color var(--duration-fast) var(--easing-default),
       box-shadow var(--duration-fast) var(--easing-default);
   }
 
-  .btn-primary:hover {
-    background-color: var(--color-accent-light);
-    color: var(--color-text-on-accent);
+  .btn-primary:hover,
+  a.btn-primary:hover,
+  button.btn-primary:hover {
+    background-color: var(--color-accent-dark);
+    color: #ffffff !important;
   }
 
-  .btn-secondary {
+  .btn-secondary,
+  a.btn-secondary,
+  button.btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -82,18 +89,23 @@
     padding: 0.625rem 1.25rem;
     font-weight: 500;
     font-size: var(--text-sm);
-    color: var(--color-text-primary);
+    color: var(--color-text-primary) !important;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     cursor: pointer;
+    text-decoration: none !important;
     transition:
       background-color var(--duration-fast) var(--easing-default),
-      border-color var(--duration-fast) var(--easing-default);
+      border-color var(--duration-fast) var(--easing-default),
+      color var(--duration-fast) var(--easing-default);
   }
 
-  .btn-secondary:hover {
+  .btn-secondary:hover,
+  a.btn-secondary:hover,
+  button.btn-secondary:hover {
     background-color: var(--color-surface-raised);
     border-color: var(--color-text-muted);
+    color: #ffffff !important;
   }
 }

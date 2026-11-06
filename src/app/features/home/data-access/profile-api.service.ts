@@ -27,6 +27,7 @@ export class ProfileApiService {
           resumeUrl: resolvedResumeUrl,
           resumePdfUrl: resolvedResumeUrl,
           biography: res?.biographyMarkdown || res?.biography || '',
+          workingApproach: res?.workingApproachMarkdown || res?.workingApproach || '',
         } as Profile;
       }),
       catchError(() => of(MOCK_PROFILE)),
