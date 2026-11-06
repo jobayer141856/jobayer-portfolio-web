@@ -11,12 +11,12 @@
       class="group flex items-center gap-2 text-lg font-bold tracking-tight text-slate-100 transition-colors"
     >
       <span
-        class="flex h-8 w-8 items-center justify-center rounded-md font-mono text-sm text-white"
+        class="flex h-8 w-8 items-center justify-center rounded-md font-mono text-sm text-white shrink-0"
         style="background-color: var(--color-accent)"
       >
-        J
+        {{ brandInitial() }}
       </span>
-      <span class="group-hover:text-indigo-400">Jobayer</span>
+      <span class="group-hover:text-indigo-400 truncate max-w-[180px] sm:max-w-none">{{ brandName() }}</span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -45,7 +45,7 @@
           target="_blank"
           download
           rel="noopener noreferrer"
-          class="btn-primary text-xs hidden sm:inline-flex"
+          class="btn-primary text-xs hidden md:inline-flex"
           aria-label="Download Curriculum Vitae (PDF)"
         >
           <svg
@@ -67,7 +67,7 @@
       } @else {
         <a
           routerLink="/contact"
-          class="btn-secondary text-xs hidden sm:inline-flex"
+          class="btn-secondary text-xs hidden md:inline-flex"
           aria-label="Contact for CV"
         >
           <span>Get In Touch</span>

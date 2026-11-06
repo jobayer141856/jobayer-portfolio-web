@@ -74,19 +74,7 @@
             </p>
             <div class="flex flex-wrap justify-center gap-4">
               <a routerLink="/projects" class="btn-primary">View Projects</a>
-              @if (profile.resumeUrl) {
-                <a
-                  [href]="profile.resumeUrl"
-                  target="_blank"
-                  download
-                  rel="noopener noreferrer"
-                  class="btn-secondary"
-                >
-                  Download Résumé
-                </a>
-              } @else {
-                <a routerLink="/contact" class="btn-secondary">Get In Touch</a>
-              }
+              <a routerLink="/contact" class="btn-secondary">Get In Touch</a>
             </div>
           </div>
         }
