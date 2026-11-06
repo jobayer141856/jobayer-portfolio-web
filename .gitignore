@@ -46,3 +46,13 @@ Thumbs.db
 # Additional ignores
 *.zip
 *.bak
+
+# Environment and local overrides
+.env*
+.envv*
+!.env.example
+
+# Environment and local overrides
+.env*
+.envv*
+!.env.example
