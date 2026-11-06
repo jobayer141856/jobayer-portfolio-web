@@ -7,29 +7,47 @@
     class="container-custom flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-slate-400"
   >
     <div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
-      <span class="font-medium text-slate-200">Jobayer</span>
+      <span class="font-medium text-slate-200">
+        {{ profile()?.displayName || 'Md. Jobayer Hossen' }}
+      </span>
       <span class="hidden sm:inline text-slate-600">•</span>
-      <span>Software Engineer</span>
+      <span>
+        {{ profile()?.headline || 'Software Engineer' }}
+      </span>
       <span class="hidden sm:inline text-slate-600">•</span>
       <p>&copy; {{ currentYear }} All rights reserved.</p>
     </div>
 
-    <nav aria-label="Footer Social Navigation">
-      <ul class="flex flex-wrap justify-center items-center gap-4" role="list">
-        @for (social of socialLinks; track social.label) {
-          <li>
-            <a
-              [href]="social.url"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="footer-social-link"
-              [attr.aria-label]="social.label + ' Profile (opens in new tab)'"
-            >
-              {{ social.label }}
-            </a>
-          </li>
-        }
-      </ul>
-    </nav>
+    <div class="flex flex-col sm:flex-row items-center gap-4">
+      @if (profile()?.publicEmail) {
+        <a
+          [href]="'mailto:' + profile()?.publicEmail"
+          class="text-xs text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-1.5"
+        >
+          <svg class="w-3.5 h-3.5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span>{{ profile()?.publicEmail }}</span>
+        </a>
+      }
+
+      <nav aria-label="Footer Social Navigation">
+        <ul class="flex flex-wrap justify-center items-center gap-4" role="list">
+          @for (social of socialLinks(); track social.url) {
+            <li>
+              <a
+                [href]="social.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-social-link"
+                [attr.aria-label]="social.label + ' Profile (opens in new tab)'"
+              >
+                {{ social.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+    </div>
   </div>
 </footer>
