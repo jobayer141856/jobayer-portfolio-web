@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, map, of } from 'rxjs';
 import { API_BASE_URL } from '../../../core/config/api-config.token';
 import { Profile } from '../../../core/models/profile.model';
 import { MOCK_PROFILE } from '../../../core/mock/portfolio-mock-data';
@@ -13,7 +13,22 @@ export class ProfileApiService {
   private readonly baseUrl = inject(API_BASE_URL);
 
   getProfile(): Observable<Profile> {
-    return this.http.get<Profile>(`${this.baseUrl}/api/v1/profile`).pipe(
+    return this.http.get<any>(`${this.baseUrl}/api/v1/profile`).pipe(
+      map((res) => {
+        const rawResume = res?.resumePdfUrl || res?.resumeUrl;
+        const resolvedResumeUrl = rawResume
+          ? rawResume.startsWith('http')
+            ? rawResume
+            : `${this.baseUrl}${rawResume}`
+          : undefined;
+
+        return {
+          ...res,
+          resumeUrl: resolvedResumeUrl,
+          resumePdfUrl: resolvedResumeUrl,
+          biography: res?.biographyMarkdown || res?.biography || '',
+        } as Profile;
+      }),
       catchError(() => of(MOCK_PROFILE)),
     );
   }

@@ -9,9 +9,11 @@ export interface Profile {
   readonly headline: string;
   readonly shortIntro: string;
   readonly biography?: string;
+  readonly biographyMarkdown?: string;
   readonly profileImageUrl?: string;
   readonly profileImageAlt?: string;
   readonly resumeUrl?: string;
+  readonly resumePdfUrl?: string;
   readonly publicEmail?: string;
   readonly socialLinks: readonly SocialLink[];
 }

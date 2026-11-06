@@ -39,30 +39,40 @@
 
     <!-- Header Actions (Desktop CTA + Mobile Toggle) -->
     <div class="flex items-center gap-3">
-      <!-- Download CV button (placeholder href to be connected to public resume asset) -->
-      <a
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-primary text-xs hidden sm:inline-flex"
-        aria-label="Download Curriculum Vitae (PDF)"
-      >
-        <svg
-          class="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
+      @if (resumeUrl(); as url) {
+        <a
+          [href]="url"
+          target="_blank"
+          download
+          rel="noopener noreferrer"
+          class="btn-primary text-xs hidden sm:inline-flex"
+          aria-label="Download Curriculum Vitae (PDF)"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-          />
-        </svg>
-        <span>Download CV</span>
-      </a>
+          <svg
+            class="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
+          </svg>
+          <span>Download CV</span>
+        </a>
+      } @else {
+        <a
+          routerLink="/contact"
+          class="btn-secondary text-xs hidden sm:inline-flex"
+          aria-label="Contact for CV"
+        >
+          <span>Get In Touch</span>
+        </a>
+      }
 
       <!-- Mobile Hamburger Button -->
       <button
@@ -133,15 +143,27 @@
         </ul>
 
         <div class="mt-4 pt-4 border-t" style="border-color: var(--color-border)">
-          <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn-primary w-full text-center text-xs"
-            aria-label="Download Curriculum Vitae (PDF)"
-          >
-            Download CV
-          </a>
+          @if (resumeUrl(); as url) {
+            <a
+              [href]="url"
+              target="_blank"
+              download
+              rel="noopener noreferrer"
+              class="btn-primary w-full text-center text-xs"
+              aria-label="Download Curriculum Vitae (PDF)"
+            >
+              Download CV
+            </a>
+          } @else {
+            <a
+              routerLink="/contact"
+              (click)="closeMobileMenu()"
+              class="btn-secondary w-full text-center text-xs"
+              aria-label="Contact for CV"
+            >
+              Get In Touch
+            </a>
+          }
         </div>
       </nav>
     </div>

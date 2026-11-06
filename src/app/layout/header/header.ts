@@ -1,5 +1,6 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { ProfileApiService } from '../../features/home/data-access/profile-api.service';
 
 interface NavItem {
   readonly label: string;
@@ -12,8 +13,11 @@ interface NavItem {
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {
+export class Header implements OnInit {
+  private readonly profileApi = inject(ProfileApiService);
+
   readonly isMobileMenuOpen = signal<boolean>(false);
+  readonly resumeUrl = signal<string | null>(null);
 
   readonly navLinks: readonly NavItem[] = [
     { label: 'Home', path: '/' },
@@ -25,6 +29,12 @@ export class Header {
     { label: 'Publications', path: '/publications' },
     { label: 'Contact', path: '/contact' },
   ];
+
+  ngOnInit(): void {
+    this.profileApi.getProfile().subscribe({
+      next: (profile) => this.resumeUrl.set(profile?.resumeUrl || null),
+    });
+  }
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update((open) => !open);
