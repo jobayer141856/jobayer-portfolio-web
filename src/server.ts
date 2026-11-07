@@ -13,16 +13,47 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 /**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
+ * Proxy API and Upload requests to MonsterASP backend over HTTP
  */
+app.use(['/api', '/uploads'], async (req, res) => {
+  const targetUrl = `http://jobayer-portfolio-api.runasp.net${req.originalUrl}`;
+  try {
+    const forwardHeaders: Record<string, string> = {};
+    for (const [key, value] of Object.entries(req.headers)) {
+      if (value && typeof value === 'string') {
+        forwardHeaders[key] = value;
+      }
+    }
+    forwardHeaders['host'] = 'jobayer-portfolio-api.runasp.net';
+    forwardHeaders['x-forwarded-host'] = req.headers.host || '';
+    forwardHeaders['x-forwarded-proto'] = 'https';
+
+    const hasBody = !['GET', 'HEAD'].includes(req.method);
+    const fetchOptions: any = {
+      method: req.method,
+      headers: forwardHeaders,
+      redirect: 'manual',
+    };
+
+    if (hasBody) {
+      const chunks: Buffer[] = [];
+      for await (const chunk of req) {
+        chunks.push(chunk);
+      }
+      fetchOptions.body = Buffer.concat(chunks);
+    }
+
+    const backendRes = await fetch(targetUrl, fetchOptions);
+    res.status(backendRes.status);
+    backendRes.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+    const buffer = Buffer.from(await backendRes.arrayBuffer());
+    res.send(buffer);
+  } catch (err: any) {
+    res.status(502).json({ error: 'Backend unreachable', details: err?.message });
+  }
+});
 
 /**
  * Serve static files from /browser
