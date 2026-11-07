@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "http://jobayer-portfolio-api.runasp.net/api/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "http://jobayer-portfolio-api.runasp.net/uploads/:path*"
+    }
+  ]
+}
